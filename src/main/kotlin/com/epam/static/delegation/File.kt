@@ -1,8 +1,10 @@
 package com.epam.static.delegation
 
 /**
- * name of file should have the next structure "VideoFileN.mkv" where N is
- * a number of file (order number or number that related to your decision)
+ * Name of file should have the next structure:
+ * "VideoFileN.mkv" where N is a number of file (order number or
+ * number that related to your decision)
+ * Size can have any Int value
  */
 data class File(val size: Int, val name: String) {
 
@@ -18,7 +20,7 @@ data class File(val size: Int, val name: String) {
      * should be "VideoFile1 + 2.mkv". This rule is applicable for any number of files.
      * @param file which will add to another file
      * @return result file which contains these 2 files
-     * @throws IllegalArgumentException in case when name doesn't contain any digit
+     * @throws [IllegalArgumentException] in case when name doesn't contain any digit
      */
     operator fun plus(file: File): File {
         //TODO()

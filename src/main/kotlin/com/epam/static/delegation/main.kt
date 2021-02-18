@@ -2,7 +2,7 @@ package com.epam.static.delegation
 
 /**
  * Fill the filesToDownload list with a different [File] with your own
- * values
+ * values. Naming rules you can find in the description of [File]
  */
 fun main() {
     val storage = FileStorage.create(5, 9000)
