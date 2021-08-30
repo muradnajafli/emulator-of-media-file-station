@@ -36,7 +36,7 @@ class FileStorage private constructor(
     }
 
     /**
-     * For files from file list which size is more then @param this 'invoke' fun should
+     * For files from file list which size is more than @param this 'invoke' fun should
      * print names of these files in terminal
      */
     operator fun invoke(size: Int) {
@@ -45,9 +45,9 @@ class FileStorage private constructor(
 
     /**
      * As a result it should print string in terminal, which contains of names of files
-     * from the file list using comma as separator. For example, if file lis contains
+     * from the file list using comma as separator. For example, if file list contains
      * two files: "VideoFile1.mkv" and "VideoFile2.mkv", then the result will
-     * ""VideoFile1.mkv, VideoFile2.mkv in your storage". So the result of this fun is
+     * "VideoFile1.mkv, VideoFile2.mkv in your storage". So the result of this fun is
      * displaying notification in terminal in the next structure "'result string' in your
      * storage" where 'result string' - string of files names, divided with comma.
      */
@@ -57,7 +57,7 @@ class FileStorage private constructor(
 
     /**
      * Create instance of [FileStorage] here
-     * if filesLimit or sizeLimit has a negative value, then @throws [IllegalArgumentException]
+     * if filesLimit or sizeLimit has a negative or zero value, then @throws [IllegalArgumentException]
      */
     companion object {
         fun create(filesLimit: Int, sizeLimit: Int): FileStorage {
