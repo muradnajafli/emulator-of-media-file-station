@@ -50,6 +50,7 @@ class FileStorage private constructor(
      * "VideoFile1.mkv, VideoFile2.mkv in your storage". So the result of this fun is
      * displaying notification in terminal in the next structure "'result string' in your
      * storage" where 'result string' - string of files names, divided with comma.
+     * in case empty file list then message in the terminal will be "Your storage is empty"
      */
     operator fun invoke() {
         //TODO()
