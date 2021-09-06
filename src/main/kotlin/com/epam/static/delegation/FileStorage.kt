@@ -11,9 +11,9 @@ class FileStorage private constructor(
 
     /**
      * This operator should add your [File] to the storage file list. Also, it should check
-     * is it possible regarding files limit and size limit add your file to this list. If it's
-     * not possible due to size limit and files limit, it should @throws [IllegalArgumentException]
-     * with a message "Cannot add file due to restriction violations"
+     * if it is possible regarding files limit and size limit to add your file to this list. If it's
+     * not possible due to size and files limitations, it should @throws [IllegalArgumentException]
+     * with a message "Cannot add file due to restriction violations".
      */
     operator fun plusAssign(file: File) {
         //TODO()
@@ -36,21 +36,21 @@ class FileStorage private constructor(
     }
 
     /**
-     * For files from file list which size is more than @param this 'invoke' fun should
-     * print names of these files in terminal
+     * For files from file list which size is more than @param this 'invoke' function should
+     * print names of these files in terminal.
      */
     operator fun invoke(size: Int) {
         //TODO()
     }
 
     /**
-     * As a result it should print string in terminal, which contains of names of files
-     * from the file list using comma as separator. For example, if file list contains
-     * two files: "VideoFile1.mkv" and "VideoFile2.mkv", then the result will
-     * "VideoFile1.mkv, VideoFile2.mkv in your storage". So the result of this fun is
-     * displaying notification in terminal in the next structure "'result string' in your
-     * storage" where 'result string' - string of files names, divided with comma.
-     * in case empty file list then message in the terminal will be "Your storage is empty"
+     * As a result it should print string in the terminal, which contains names of files
+     * from the file list using comma as a separator. For example, if the file list contains
+     * two files: "VideoFile1.mkv" and "VideoFile2.mkv", the result will be
+     * "VideoFile1.mkv, VideoFile2.mkv in your storage". So the result of this function is
+     * displaying a notification in the terminal in the following structure "'result string' in your
+     * storage" where 'result string' is the string of files names, divided with comma.
+     * In case of an empty file list, the message in the terminal will be "Your storage is empty".
      */
     operator fun invoke() {
         //TODO()
