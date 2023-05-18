@@ -1,24 +1,28 @@
 package com.epam.static.delegation
 
 /**
- * Use delegation here instead of implementation of each interface methods
+ * Composition of all possible actions, which should be applied to
+ * or invoked with [File].
+ *
+ * Requirements:
+ *  - you should use delegation here instead of implementation
+ *    of each interface methods
  */
 class MediaFileProcessor(
     private val downloader: Downloader,
     private val player: Player,
-    private val editor: FileEditor
+    private val editor: Editor
 ) : Downloader, Player, Editor {
 
     override fun download() {
-        TODO("Not yet implemented")
+        TODO()
     }
 
     override fun edit() {
-        TODO("Not yet implemented")
+        TODO()
     }
 
     override fun play() {
-        TODO("Not yet implemented")
+        TODO()
     }
-
 }

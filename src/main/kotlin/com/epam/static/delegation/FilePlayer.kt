@@ -1,9 +1,9 @@
 package com.epam.static.delegation
 
-class FilePlayer(private val fileList: List<File>) : Player {
+class FilePlayer(private val storage: FileStorage) : Player {
 
     override fun play() {
-        fileList.forEach { file ->
+        storage.getAllFiles().forEach { file ->
             println("$file playing")
         }
     }

@@ -1,68 +1,99 @@
 package com.epam.static.delegation
 
+/**
+ * Keeps all our files, which will be downloaded.
+ * Has a specific restrictions for total files size and they amounts
+ *
+ * Requirements:
+ * - you have to add any collection you want in order to
+ *   be able to add/remove/iterate files to the storage
+ *
+ * @param filesLimit how many files could be persisted
+ * @param sizeLimit total size of persisted files
+ */
 class FileStorage private constructor(
-    private val filesLimit: Int,
-    private val sizeLimit: Int
+        private val filesLimit: Int,
+        private val sizeLimit: Int
 ) {
 
-    private val fileList = ArrayList<File>()
-
-    fun getAllFiles(): List<File> = fileList
+    /**
+     * Returns list of the file, which are currently persisted
+     * in the storage
+     */
+    fun getAllFiles(): Collection<File> = TODO()
 
     /**
-     * This operator should add your [File] to the storage file list. Also, it should check
-     * is it possible regarding files limit and size limit add your file to this list. If it's
-     * not possible due to size limit and files limit, it should @throws [IllegalArgumentException]
-     * with a message "Cannot add file due to restriction violations"
+     * Adds file to the storage, if it possible
+     *
+     * Requirements:
+     * - [filesLimit] should not be violated
+     * - [sizeLimit] should be enough to persist new file
+     * - if any of restrictions is violated, then [IllegalArgumentException]
+     *   should be thrown with message "Cannot add file due to restriction violations"
+     *
+     * @param file to persist in the storage
+     * @throws [IllegalArgumentException] when restrictions is violated
      */
     operator fun plusAssign(file: File) {
-        //TODO()
-    }
-
-    operator fun minusAssign(file: File) {
-        fileList.remove(file)
+        TODO()
     }
 
     /**
-     * This operator should make the same changes as a previous one,
-     * but using as a @param index instead of [File]
-     * In case when index doesn't have a correct value for current
-     * file list, it should @throws [IllegalArgumentException] with a message
-     * "Wrong file index 'value'", where instead of 'value' part you should add
-     * the value of @param index
+     * Removes file from the storage, if it presents
+     */
+    operator fun minusAssign(file: File) {
+        TODO()
+    }
+
+    /**
+     *
+     * Removes file from the storage by its index, if such index exists.
+     *
+     * Requirements:
+     * - when index is invalid then [IllegalArgumentException] should
+     *   be thrown with the message: "Wrong file index $index"
+     *
+     * @param index of file with should be deleted
+     * @throws [IllegalArgumentException] when index is invalid
      */
     operator fun minusAssign(index: Int) {
-        //TODO()
+        TODO()
     }
 
     /**
-     * For files from file list which size is more than @param this 'invoke' fun should
-     * print names of these files in terminal
+     * Prints all files names, which satisfy a condition: [File.size] > [size]
      */
     operator fun invoke(size: Int) {
-        //TODO()
+        TODO()
     }
 
     /**
-     * As a result it should print string in terminal, which contains of names of files
-     * from the file list using comma as separator. For example, if file list contains
-     * two files: "VideoFile1.mkv" and "VideoFile2.mkv", then the result will
-     * "VideoFile1.mkv, VideoFile2.mkv in your storage". So the result of this fun is
-     * displaying notification in terminal in the next structure "'result string' in your
-     * storage" where 'result string' - string of files names, divided with comma.
-     * in case empty file list then message in the terminal will be "Your storage is empty"
+     * Prints all files names which are currently stored
+     * to the terminal
+     *
+     * Requirements:
+     * - all names should be printed in one line with `coma` separator.
+     *   For example, if storage consists of 2 files then function should print:
+     *   "VideoFile1.mkv, VideoFile2.mkv in your storage"
+     * - if storage is empty then a next notification should be shown:
+     *   "Your storage is empty"
      */
     operator fun invoke() {
-        //TODO()
+        TODO()
     }
 
-    /**
-     * Create instance of [FileStorage] here
-     * if filesLimit or sizeLimit has a negative or zero value, then @throws [IllegalArgumentException]
-     */
     companion object {
+        /**
+         * Create a new instance of [FileStorage] with given restrictions
+         *
+         * Requirements:
+         * - [filesLimit] should be greater than 0
+         * - [sizeLimit]  should be greater than 0
+         * - if requirements is violated then [IllegalArgumentException]
+         *   should be thrown
+         */
         fun create(filesLimit: Int, sizeLimit: Int): FileStorage {
-            //TODO()
+            TODO()
         }
     }
 }

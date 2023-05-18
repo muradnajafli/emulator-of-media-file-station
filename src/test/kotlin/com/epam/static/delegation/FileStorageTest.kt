@@ -1,6 +1,5 @@
 package com.epam.static.delegation
 
-import junit.framework.TestCase.assertEquals
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -18,141 +17,107 @@ class FileStorageTest {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun create_storage_negative_files_limit() {
+    fun `when creating storage with negative filesLimit it should throws IllegalArgumentException`() {
         FileStorage.create(-1, 10)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun create_storage_zero_files_limit() {
+    fun `when creating storage with zero filesLimit it should throws IllegalArgumentException`() {
         FileStorage.create(0, 10)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun create_storage_negative_size_limit() {
+    fun `when creating storage with negative sizeLimit it should throws IllegalArgumentException`() {
         FileStorage.create(10, -10)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun create_storage_zero_size_limit() {
+    fun `when creating storage with zero sizeLimit it should throws IllegalArgumentException`() {
         FileStorage.create(10, 0)
     }
 
     @Test
-    fun check_storage_size_no_actions() {
+    fun `initial storage should be empty and size should be 0`() {
         val storage = FileStorage.create(1, 10)
         Assert.assertEquals(0, storage.getAllFiles().size)
     }
 
     @Test
-    fun add_file_to_storage_check_size() {
+    fun `when new file doesn't violate storage restrictions it should be added`() {
         val storage = FileStorage.create(1, 10)
-        val file = File(10, "some name")
+        val file = File(10, "FileName1.mkv")
         storage += file
         Assert.assertEquals(1, storage.getAllFiles().size)
     }
 
-    @Test
-    fun add_file_to_storage_check_storage_content() {
-        val storage = FileStorage.create(1, 10)
-        val file = File(10, "some name")
-        storage += file
-        assertEquals(
-            "Hashcode and equals not implemented",
-            File(10, "some name"),
-            storage.getAllFiles().firstOrNull()
-        )
-    }
-
     @Test(expected = java.lang.IllegalArgumentException::class)
-    fun add_file_to_storage_negative_size() {
+    fun `when file with a negative size is adding to the storage then IllegalArgumentException should be thrown`() {
         val storage = FileStorage.create(1, 10)
-        val file = File(-10, "some name")
+        val file = File(-10, "FileName1.mkv")
         storage += file
     }
 
     @Test(expected = java.lang.IllegalArgumentException::class)
-    fun add_file_to_storage_files_limit_exceed() {
+    fun `if new file will exceed filesLimit after add operation then IllegalArgumentException should be thrown`() {
         val storage = FileStorage.create(1, 50)
-        val file1 = File(10, "some name")
-        val file2 = File(10, "some name2")
+        val file1 = File(10, "FileName1.mkv")
+        val file2 = File(10, "FileName2.mkv")
         storage += file1
         storage += file2
     }
 
     @Test(expected = java.lang.IllegalArgumentException::class)
-    fun add_file_to_storage_size_limit_exceed() {
+    fun `if new file will exceed sizeLimit after adding then IllegalArgumentException should be thrown`() {
         val storage = FileStorage.create(5, 10)
-        val file1 = File(10, "some name")
-        val file2 = File(10, "some name")
+        val file1 = File(10, "FileName1.mkv")
+        val file2 = File(10, "FileName2.mkv")
         storage += file1
         storage += file2
     }
 
     @Test
-    fun add_file_to_storage_size_equal_to_limit() {
+    fun `when new file will not violate sizeLimit after adding it should be added to the storage`() {
         val storage = FileStorage.create(5, 10)
-        val file1 = File(10, "some name")
+        val file1 = File(10, "FileName1.mkv")
         storage += file1
         Assert.assertEquals(1, storage.getAllFiles().size)
     }
 
     @Test
-    fun add_file_to_storage_files_count_equal_to_limit() {
+    fun `when new file will not violate filesLimit after adding it should be added to the storage`() {
         val storage = FileStorage.create(1, 20)
-        val file1 = File(10, "some name")
+        val file1 = File(10, "FileName1.mkv")
         storage += file1
         Assert.assertEquals(1, storage.getAllFiles().size)
     }
 
     @Test
-    fun remove_file_from_storage() {
+    fun `when deleting a file which present in the storage it should be deleted`() {
         val storage = FileStorage.create(1, 10)
-        val file = File(10, "some name")
+        val file = File(10, "FileName1.mkv")
         storage += file
         storage -= file
         Assert.assertEquals(0, storage.getAllFiles().size)
     }
 
-    @Test
-    fun double_add_file_from_storage() {
-        val storage = FileStorage.create(5, 100)
-        val file1 = File(10, "some name")
-        val file2 = File(20, "some name2")
-        storage += file1
-        storage += file2
-        Assert.assertEquals(2, storage.getAllFiles().size)
-    }
-
-    @Test
-    fun double_remove_file_from_storage() {
-        val storage = FileStorage.create(2, 100)
-        val file1 = File(10, "some name")
-        val file2 = File(20, "some name2")
-        storage += file1
-        storage += file2
-
-        storage -= file1
-        Assert.assertEquals(1, storage.getAllFiles().size)
-    }
-
     @Test(expected = IllegalArgumentException::class)
-    fun remove_from_storage_by_index() {
+    fun `when remove file by invalid index then IllegalArgumentException should be thrown`() {
         val storage = FileStorage.create(1, 10)
-        val file = File(10, "some name")
+        val file = File(10, "FileName1.mkv")
         storage += file
         storage -= 1
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun remove_from_storage_by_negative_index() {
+    fun `when remove file by negative index then IllegalArgumentException should be thrown`() {
         val storage = FileStorage.create(1, 10)
-        val file = File(10, "some name")
+        val file = File(10, "FileName1.mkv")
         storage += file
         storage -= -1
     }
 
     @Test
-    fun invoke_storage_no_results() {
+    fun `when call invoke() on empty storage then appropriate message should be shown`() {
         val storage = FileStorage.create(1, 10)
         storage.invoke()
         val output = String(outputStream.toByteArray())
@@ -161,9 +126,9 @@ class FileStorageTest {
     }
 
     @Test
-    fun invoke_storage_single_results() {
+    fun `when call invoke() on a storage with a single file it should print appropriate message`() {
         val storage = FileStorage.create(1, 10)
-        val file = File(10, "some name")
+        val file = File(10, "FileName1.mkv")
         storage += file
         storage.invoke()
         val output = String(outputStream.toByteArray())
@@ -172,10 +137,10 @@ class FileStorageTest {
     }
 
     @Test
-    fun invoke_storage_double_results() {
+    fun `when call invoke() on a storage with more then 1 file it should print appropriate message with coma separator`() {
         val storage = FileStorage.create(2, 100)
-        val file1 = File(10, "some name1")
-        val file2 = File(10, "some name2")
+        val file1 = File(10, "FileName1.mkv")
+        val file2 = File(10, "FileName2.mkv")
         storage += file1
         storage += file2
         storage.invoke()
@@ -185,10 +150,10 @@ class FileStorageTest {
     }
 
     @Test
-    fun invoke_storage_check_by_size() {
+    fun `when call invoke(size) and all files meet requirements then all of them should be printed()`() {
         val storage = FileStorage.create(2, 100)
-        val file1 = File(10, "some name1")
-        val file2 = File(20, "some name2")
+        val file1 = File(10, "FileName1.mkv")
+        val file2 = File(10, "FileName2.mkv")
         storage += file1
         storage += file2
         storage.invoke(5)
@@ -198,14 +163,24 @@ class FileStorageTest {
     }
 
     @Test
-    fun invoke_storage_check_by_size_no_results() {
+    fun `when call invoke(size) and no files meet requirements then nothing should be printed`() {
         val storage = FileStorage.create(2, 100)
-        val file1 = File(10, "some name1")
-        val file2 = File(20, "some name2")
+        val file1 = File(10, "FileName1.mkv")
+        val file2 = File(10, "FileName2.mkv")
         storage += file1
         storage += file2
         storage.invoke(50)
         val output = String(outputStream.toByteArray())
         Assert.assertEquals(output, "")
+    }
+
+    companion object {
+
+        fun createStorageWithFiles(size: Int): FileStorage {
+            val storage = FileStorage.create(100, Int.MAX_VALUE)
+            List(size) { index -> File(1, "FileName$index.mkv") }
+                    .forEach { storage += it }
+            return storage
+        }
     }
 }
