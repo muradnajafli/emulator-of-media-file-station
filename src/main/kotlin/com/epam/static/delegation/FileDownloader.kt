@@ -1,17 +1,20 @@
 package com.epam.static.delegation
 
 class FileDownloader(
-    private val storage: FileStorage,
-    private val filesList: List<File>
+        private val storage: FileStorage,
+        private val filesList: Collection<File>
 ) : Downloader {
 
     /**
-     * After downloading file it should be added to the storage using operator
+     * Persists all files to the storage and prints their names.
+     *
+     * Requirements:
+     * - implement a mechanism which will save files to the storage
      */
     override fun download() {
         filesList.forEach { file ->
             println("$file downloaded")
+            TODO()
         }
     }
-
 }

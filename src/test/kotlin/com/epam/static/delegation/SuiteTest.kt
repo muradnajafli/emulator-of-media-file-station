@@ -5,5 +5,9 @@ import org.junit.runners.Suite
 
 
 @RunWith(Suite::class)
-@Suite.SuiteClasses(FileStorageTest::class, FileTest::class)
+@Suite.SuiteClasses(
+        FileStorageTest::class,
+        FileEditorTest::class,
+        FileDownloaderTest::class,
+        FileTest::class)
 internal class SuiteTest

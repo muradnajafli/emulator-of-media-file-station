@@ -1,16 +1,21 @@
 package com.epam.static.delegation
 
 /**
- * Fill the filesToDownload list with a different [File] with your own
- * values. Naming rules you can find in the description of [File]
+ * Here is an example code which could be useful to check your implementation
+ * manually. There are any requirements for it, this code will not be tested
+ * and it just for demonstration purposes.
+ * Feel free to use it!
  */
 fun main() {
-    val storage = FileStorage.create(5, 9000)
-    val filesToDownload = listOf()
+    // fill this list with your files to make this code work!
+    val filesToDownload = listOf<File>()
+
+    val storage = FileStorage.create(filesToDownload.size, 9000)
+
     val downloader = FileDownloader(storage, filesToDownload)
-    val fileList = storage.getAllFiles()
-    val player = FilePlayer(fileList)
+    val player = FilePlayer(storage)
     val editor = FileEditor(storage)
+
     val mediaFileProcessor = MediaFileProcessor(downloader, player, editor)
     with(mediaFileProcessor) {
         download()
