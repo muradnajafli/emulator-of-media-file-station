@@ -13,6 +13,15 @@ class FileEditor(private val storage: FileStorage) : Editor {
      *   with a message: "Your storage is empty"
      */
     override fun edit() {
-        TODO()
+        val files = storage.getAllFiles()
+
+        if (files.isEmpty()) {
+            throw IllegalStateException("Your storage is empty")
+        }
+
+        files.forEach { file ->
+            println("Edited file is $file")
+        }
+
     }
 }

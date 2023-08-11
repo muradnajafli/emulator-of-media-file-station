@@ -37,6 +37,30 @@ class File(val size: Int, val name: String) {
      * @return new file with a total size and extended name
      */
     operator fun plus(file: File): File {
-        TODO()
+        val firstNumberSubstring = name.substringAfter("VideoFile").substringBefore(DOT)
+        val secondNumberSubstring = file.name.substringAfter("VideoFile").substringBefore(DOT)
+
+        try {
+            val firstFileNumber = firstNumberSubstring.toInt()
+            val secondFileNumber = secondNumberSubstring.toInt()
+            val newSize = size + file.size
+            val newFileName = "VideoFile$firstFileNumber+$secondFileNumber$DOT${file.name.substringAfter(DOT)}"
+            return File(newSize, newFileName)
+
+        } catch (e: Exception) {
+            throw IllegalArgumentException()
+        }
+    }
+
+
+    override fun hashCode(): Int {
+        return 31 * size.hashCode() + name.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is File) return false
+
+        return size == other.size && name == other.name
     }
 }

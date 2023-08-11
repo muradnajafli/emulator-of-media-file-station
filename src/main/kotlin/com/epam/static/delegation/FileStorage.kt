@@ -16,11 +16,16 @@ class FileStorage private constructor(
         private val sizeLimit: Int
 ) {
 
+    private val files: MutableSet<File> = mutableSetOf()
+
+
     /**
      * Returns list of the file, which are currently persisted
      * in the storage
      */
-    fun getAllFiles(): Collection<File> = TODO()
+    fun getAllFiles(): Collection<File> {
+        return files.toList()
+    }
 
     /**
      * Adds file to the storage, if it possible
@@ -35,14 +40,27 @@ class FileStorage private constructor(
      * @throws [IllegalArgumentException] when restrictions is violated
      */
     operator fun plusAssign(file: File) {
-        TODO()
+        if (files.size >= filesLimit) {
+            throw IllegalArgumentException()
+        }
+        if (files.size + file.size > sizeLimit) {
+            throw IllegalArgumentException()
+        }
+        if (file.size < 0) {
+            throw IllegalArgumentException()
+        }
+        files.add(file)
+
     }
 
     /**
      * Removes file from the storage, if it presents
      */
     operator fun minusAssign(file: File) {
-        TODO()
+        if (file in files) {
+            files.remove(file)
+        }
+
     }
 
     /**
@@ -57,14 +75,25 @@ class FileStorage private constructor(
      * @throws [IllegalArgumentException] when index is invalid
      */
     operator fun minusAssign(index: Int) {
-        TODO()
+        val filesList = files.toList()
+        if (index < 0 || index >= filesList.size) {
+            throw IllegalArgumentException("Wrong file index $index")
+        }
+        files.remove(filesList[index])
     }
 
     /**
      * Prints all files names, which satisfy a condition: [File.size] > [size]
      */
     operator fun invoke(size: Int) {
-        TODO()
+        val listOfFile = files.toList()
+        for (file in listOfFile) {
+            if (file.size > size) {
+                print(file.name)
+                print("\n")
+            }
+        }
+
     }
 
     /**
@@ -79,7 +108,13 @@ class FileStorage private constructor(
      *   "Your storage is empty"
      */
     operator fun invoke() {
-        TODO()
+        if (files.isEmpty()) {
+            print("Your storage is empty\n")
+        } else {
+            val names = files.joinToString(", ") { it.name }
+            print("$names in your storage\n")
+        }
+
     }
 
     companion object {
@@ -93,7 +128,11 @@ class FileStorage private constructor(
          *   should be thrown
          */
         fun create(filesLimit: Int, sizeLimit: Int): FileStorage {
-            TODO()
+            if (filesLimit > 0 && sizeLimit > 0) {
+                return FileStorage(filesLimit, sizeLimit)
+
+            }
+            throw IllegalArgumentException()
         }
     }
 }

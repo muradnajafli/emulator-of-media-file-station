@@ -14,7 +14,7 @@ class FileDownloader(
     override fun download() {
         filesList.forEach { file ->
             println("$file downloaded")
-            TODO()
+            storage += file
         }
     }
 }
