@@ -12,17 +12,17 @@ class MediaFileProcessor(
     private val downloader: Downloader,
     private val player: Player,
     private val editor: Editor
-) : Downloader, Player, Editor {
+) : Downloader by downloader, Player by player, Editor by editor {
 
     override fun download() {
-        TODO()
+        downloader.download()
     }
 
     override fun edit() {
-        TODO()
+        editor.edit()
     }
 
     override fun play() {
-        TODO()
+        player.play()
     }
 }
