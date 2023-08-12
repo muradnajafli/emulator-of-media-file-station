@@ -18,6 +18,16 @@ class File(val size: Int, val name: String) {
         private const val DOT = "."
     }
 
+    init {
+        if (!name.endsWith(DOT + "mkv")) {
+            throw IllegalArgumentException("File extension must be 'mkv'")
+        }
+
+        if (size < 0) {
+            throw IllegalArgumentException("File size must be >= 0")
+        }
+    }
+
     /**
      * Emulates editing process of the video files. Creating a new file
      * with extended [name] and added up [size]
@@ -37,19 +47,31 @@ class File(val size: Int, val name: String) {
      * @return new file with a total size and extended name
      */
     operator fun plus(file: File): File {
-        val firstNumberSubstring = name.substringAfter("VideoFile").substringBefore(DOT)
-        val secondNumberSubstring = file.name.substringAfter("VideoFile").substringBefore(DOT)
-
         try {
-            val firstFileNumber = firstNumberSubstring.toInt()
-            val secondFileNumber = secondNumberSubstring.toInt()
-            val newSize = size + file.size
-            val newFileName = "VideoFile$firstFileNumber+$secondFileNumber$DOT${file.name.substringAfter(DOT)}"
-            return File(newSize, newFileName)
+            val currentNumberSubstring = name.substringAfter("File").substringBefore(DOT)
+            val nextNumberSubstring = file.name.substringAfter("File").substringBefore(DOT)
 
+            val currentLastChar = currentNumberSubstring.last()
+            val nextLastChar = nextNumberSubstring.last()
+
+            if (!currentLastChar.isDigit() || !nextLastChar.isDigit()) {
+                throw IllegalArgumentException()
+            }
+
+            val newSize = size + file.size
+
+            val currentFileName = name.substringBefore(currentNumberSubstring)
+            val newFileName = "$currentFileName${parseNumberSubstring(currentNumberSubstring)}+${parseNumberSubstring(nextNumberSubstring)}${DOT}${name.substringAfter(DOT)}"
+
+            return File(newSize, newFileName)
         } catch (e: Exception) {
             throw IllegalArgumentException()
         }
+    }
+    private fun parseNumberSubstring(substring: String): String {
+        val numbers = substring.split("+")
+        return numbers.joinToString("+")
+
     }
 
 
