@@ -61,19 +61,13 @@ class File(val size: Int, val name: String) {
             val newSize = size + file.size
 
             val currentFileName = name.substringBefore(currentNumberSubstring)
-            val newFileName = "$currentFileName${parseNumberSubstring(currentNumberSubstring)}+${parseNumberSubstring(nextNumberSubstring)}${DOT}${name.substringAfter(DOT)}"
+            val newFileName = "$currentFileName${currentNumberSubstring}+${nextNumberSubstring}${DOT}${name.substringAfter(DOT)}"
 
             return File(newSize, newFileName)
         } catch (e: Exception) {
             throw IllegalArgumentException()
         }
     }
-    private fun parseNumberSubstring(substring: String): String {
-        val numbers = substring.split("+")
-        return numbers.joinToString("+")
-
-    }
-
 
     override fun hashCode(): Int {
         return 31 * size.hashCode() + name.hashCode()
