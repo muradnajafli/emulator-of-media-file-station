@@ -16,7 +16,7 @@ class FileStorage private constructor(
         private val sizeLimit: Int
 ) {
 
-    private val files: MutableSet<File> = mutableSetOf()
+    private val files: MutableList<File> = mutableListOf()
 
 
     /**
@@ -24,7 +24,7 @@ class FileStorage private constructor(
      * in the storage
      */
     fun getAllFiles(): Collection<File> {
-        return files.toList()
+        return files
     }
 
     /**
@@ -41,13 +41,18 @@ class FileStorage private constructor(
      */
     operator fun plusAssign(file: File) {
         if (files.size >= filesLimit) {
-            throw IllegalArgumentException()
+            throw IllegalArgumentException("Cannot add file due to restriction violations")
         }
-        if (files.size + file.size > sizeLimit) {
-            throw IllegalArgumentException()
+        // files.size -> number of files in storage
+        // file.size -> size of one file
+        // [2, 3, 4, 5]
+        // count() -> 4
+        // what we what it to return:
+        if (files.sumOf { it.size } + file.size > sizeLimit) {
+            throw IllegalArgumentException("Cannot add file due to restriction violations")
         }
         if (file.size < 0) {
-            throw IllegalArgumentException()
+            throw IllegalArgumentException("Cannot add file due to restriction violations")
         }
         files.add(file)
 

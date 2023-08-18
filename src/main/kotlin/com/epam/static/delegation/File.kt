@@ -61,12 +61,13 @@ class File(val size: Int, val name: String) {
             val newSize = size + file.size
 
             val currentFileName = name.substringBefore(currentNumberSubstring)
-            val newFileName = "$currentFileName${currentNumberSubstring}+${nextNumberSubstring}${DOT}${name.substringAfter(DOT)}"
+            val newFileName = "$currentFileName${currentNumberSubstring}+${nextNumberSubstring}${DOT}mkv"
 
             return File(newSize, newFileName)
         } catch (e: Exception) {
             throw IllegalArgumentException()
         }
+        // File1.mkv + File2.mkv + File3.mkv = File1+2.mkv + File3.mkv = File1+2+3.mkv
     }
 
     override fun hashCode(): Int {
