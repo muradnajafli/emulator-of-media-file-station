@@ -91,8 +91,7 @@ class FileStorage private constructor(
      * Prints all files names, which satisfy a condition: [File.size] > [size]
      */
     operator fun invoke(size: Int) {
-        val listOfFile = files.toList()
-        for (file in listOfFile) {
+        for (file in files) {
             if (file.size > size) {
                 print(file.name)
                 print("\n")
