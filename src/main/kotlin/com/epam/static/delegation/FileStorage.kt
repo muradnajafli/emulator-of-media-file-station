@@ -48,6 +48,8 @@ class FileStorage private constructor(
         // [2, 3, 4, 5]
         // count() -> 4
         // what we what it to return:
+
+        // left off at this part:
         if (files.sumOf { it.size } + file.size > sizeLimit) {
             throw IllegalArgumentException("Cannot add file due to restriction violations")
         }
@@ -80,11 +82,10 @@ class FileStorage private constructor(
      * @throws [IllegalArgumentException] when index is invalid
      */
     operator fun minusAssign(index: Int) {
-        val filesList = files.toList()
-        if (index < 0 || index >= filesList.size) {
+        if (index < 0 || index >= files.size) {
             throw IllegalArgumentException("Wrong file index $index")
         }
-        files.remove(filesList[index])
+        files.remove(files[index])
     }
 
     /**
